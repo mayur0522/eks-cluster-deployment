@@ -5,7 +5,7 @@ data "aws_subnets" "available-subnets"{
     }
 }
 
-resource "aws_eks_cluster" "demo-cluster" {
+resource "aws_eks_cluster" "ankit-cluster" {
   name     = "demo-cluster"
   role_arn = aws_iam_role.example.arn
 
@@ -22,15 +22,15 @@ resource "aws_eks_cluster" "demo-cluster" {
 }
 
 output "endpoint" {
-  value = aws_eks_cluster.demo-cluster.endpoint
+  value = aws_eks_cluster.ankit-cluster.endpoint
 }
 
 output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.demo-cluster.certificate_authority[0].data
+  value = aws_eks_cluster.ankit-cluster.certificate_authority[0].data
 }
 
 resource "aws_eks_node_group" "node-grp" {
-  cluster_name    = aws_eks_cluster.demo-cluster.name
+  cluster_name    = aws_eks_cluster.ankit-cluster.name
   node_group_name = "pc-node-group"
   node_role_arn   = aws_iam_role.worker.arn
   subnet_ids      = data.aws_subnets.available-subnets.ids
